@@ -1,0 +1,79 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-e674219f55e5afd1bd12.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "Rental",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "Rental::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Rental-Debug-23b2ae9663193ce37da4.json",
+					"name" : "Rental",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Rental_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Rental_autogen-Debug-6e4603f879b638c3274d.json",
+					"name" : "Rental_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Rental_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Rental_autogen_timestamp_deps-Debug-89b9bfc0646711f25053.json",
+					"name" : "Rental_autogen_timestamp_deps",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/amilcar/OOPrograms/build-Rental-Desktop_Qt_6_6_1_GCC_64bit-Debug",
+		"source" : "/home/amilcar/OOPrograms/Rental"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 6
+	}
+}
