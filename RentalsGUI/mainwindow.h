@@ -1,5 +1,16 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
+#include <iostream>
+#include <database.h>
+#include <user.h>
+#include <QStringList>
+#include <QtSql>
+#include <QSqlDatabase>
+#include <QSqlQuery>
+#include <QDebug>
+#include <QStringList>
+#include <QMessageBox>
+#include <QMainWindow>
 
 #include <QMainWindow>
 
@@ -20,7 +31,24 @@ public:
 private slots:
     void on_loginButton_clicked();
 
+    void on_addUser_clicked();
+
+    void on_addUserButton_clicked();
+
+    void on_updateButton_clicked();
+
+    void on_updateUser_clicked();
+
+    void on_userIDBox_valueChanged(int arg1);
+
+    void on_deleteUser_clicked();
+
+    void on_deleteButton_clicked();
+
 private:
     Ui::MainWindow *ui;
+    Database db;
+    User user;
+
 };
 #endif // MAINWINDOW_H

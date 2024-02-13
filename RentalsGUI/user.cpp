@@ -1,12 +1,7 @@
 #include "user.h"
 
 // user.cpp
-User::User(Database& database)
-    : db(database), UserID(0), UserFirstName(""), UserLastName(""), Username(""), UserPassword(""), UserRole(0)
-{
-    // Initialize member variables or perform any setup needed
-}
-
+User::User() : UserID(0), UserFirstName(""), UserLastName(""), Username(""), UserPassword(""), UserRole(0){}
 
 User::User(int newUserID, const string newUserFirstName, const string newUserLastName, const string newUsername, const string newUserPassword, int newRole)
     : UserID(newUserID), UserFirstName(newUserFirstName),
@@ -71,16 +66,36 @@ void User::setUserPassword(const string newUserPassword)
     UserPassword = newUserPassword;
 }
 
-void User::setUserRole(int newUserRole)
+void User::setUserRole(const string enteredUsername)
 {
-    UserRole = newUserRole;
+    QSqlQuery roleQuery;
+
+    // get role id and username from db.
+    if (roleQuery.exec("SELECT role_id FROM users WHERE user_name = '" + QString::fromStdString(enteredUsername) + "'"))
+    {
+        if (roleQuery.next())
+        {
+            int userRoleFromDB = roleQuery.value(0).toInt();
+            UserRole = userRoleFromDB;
+            qDebug() << "User role set successfully.";
+        }
+        else
+        {
+            qDebug() << "Failed to retrieve user role. Defaulting to UserRole = 0.";
+            UserRole = 0; // Default role if the query didn't return a result
+        }
+    }
+    else
+    {
+        qDebug() << roleQuery.lastError().text();
+        UserRole = 0; // Default role in case of an error
+    }
 }
+
 
 bool User::loginVerification(const string enteredUsername, const string enteredPassword)
 {
-    if (db.isConnected())
-    {
-        QSqlQuery verifyQuery; // Creating a query to verify
+        QSqlQuery verifyQuery; // Creating a query to verify user information.
 
         if (verifyQuery.exec("SELECT user_name, user_password FROM users WHERE user_name = '" + QString::fromStdString(enteredUsername) + "'"))
         {
@@ -88,10 +103,11 @@ bool User::loginVerification(const string enteredUsername, const string enteredP
             {
                 QString storedUsername = verifyQuery.value(0).toString();
                 QString storedPassword = verifyQuery.value(1).toString();
-
+                //compare password from db to password entered.
                 if (storedUsername == QString::fromStdString(enteredUsername) && storedPassword == QString::fromStdString(enteredPassword))
                 {
                     qDebug() << "Login successful.";
+                    setUserRole(enteredUsername);
                     return true;
                 }
                 else
@@ -109,12 +125,59 @@ bool User::loginVerification(const string enteredUsername, const string enteredP
         else
         {
             qDebug() << verifyQuery.lastError().text();
+            return false;
         }
-    }
-    else
-    {
-        qDebug() << "No db connection.";
-    }
-    return false; // Return false if any error occurred
 }
 
+void User::addNewUser(int newRoleID, const string newUsername, const string newPassword, const string newFname, const string newLname)
+{
+    QSqlQuery addUserQuery;
+    addUserQuery.prepare("INSERT INTO users (role_id, user_name, user_password, user_first_name, user_last_name) VALUES (:roleID, :username, :password, :fname, :lname)");
+
+    addUserQuery.bindValue(":roleID", newRoleID);
+    addUserQuery.bindValue(":username", QString::fromStdString(newUsername));
+    addUserQuery.bindValue(":password", QString::fromStdString(newPassword));
+    addUserQuery.bindValue(":fname", QString::fromStdString(newFname));
+    addUserQuery.bindValue(":lname", QString::fromStdString(newLname));
+
+    if (!addUserQuery.exec())
+    {
+        qDebug() << "Error adding new user:" << addUserQuery.lastError().text();
+    }
+}
+
+void User::updateUser(int userID, int updatedRoleID, const string updatedUsername, const string updatedPassword, const string updatedFname, const string updatedLname)
+{
+    QSqlQuery updateUserQuery;
+    updateUserQuery.prepare("UPDATE users SET role_id = :updatedRoleID, user_name = :updatedUsername, user_password = :updatedPassword, user_first_name = :updatedFname, user_last_name = :updatedLname WHERE user_id = :userID");
+
+    updateUserQuery.bindValue(":updatedRoleID", updatedRoleID);
+    updateUserQuery.bindValue(":updatedUsername", QString::fromStdString(updatedUsername));
+    updateUserQuery.bindValue(":updatedPassword", QString::fromStdString(updatedPassword));
+    updateUserQuery.bindValue(":updatedFname", QString::fromStdString(updatedFname));
+    updateUserQuery.bindValue(":updatedLname", QString::fromStdString(updatedLname));
+    updateUserQuery.bindValue(":userID", userID);
+
+    if (!updateUserQuery.exec())
+    {
+        qDebug() << "Error updating user:" << updateUserQuery.lastError().text();
+    }
+}
+
+void User::deleteUser(int userID, int toDeleteRoleID, const string toDeleteUsername, const string toDeletePassword, const string toDeleteFname, const string toDeleteLname)
+{
+    QSqlQuery deleteUserQuery;
+    deleteUserQuery.prepare("DELETE FROM users role_id = :toDeleteRoleID, user_name = :toDeleteUsername, user_password = :toDeletePassword, user_first_name = :toDeleteFname, user_last_name = :toDeleteLname WHERE user_id = :userID");
+
+    deleteUserQuery.bindValue(":toDeleteRoleID", toDeleteRoleID);
+    deleteUserQuery.bindValue(":updatedUsername", QString::fromStdString(toDeleteUsername));
+    deleteUserQuery.bindValue(":updatedPassword", QString::fromStdString(toDeletePassword));
+    deleteUserQuery.bindValue(":updatedFname", QString::fromStdString(toDeleteFname));
+    deleteUserQuery.bindValue(":updatedLname", QString::fromStdString(toDeleteLname));
+    deleteUserQuery.bindValue(":userID", userID);
+
+    if (!deleteUserQuery.exec())
+    {
+        qDebug() << "Error updating user:" << deleteUserQuery.lastError().text();
+    }
+}
