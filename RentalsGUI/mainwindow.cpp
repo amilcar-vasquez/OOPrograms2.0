@@ -13,6 +13,7 @@ using namespace std;
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
+    , db()
 {
     ui->setupUi(this);
     ui->stackedWidget->setCurrentIndex(0);
@@ -34,9 +35,6 @@ void MainWindow::on_loginButton_clicked()
     // Convert QString to string
     string usernameStr = uname.toStdString();
     string passwordStr = pwd.toStdString();
-
-    Database db; //call an instance of Database
-
     // Run verification
     if (user.loginVerification(usernameStr, passwordStr))
     {
@@ -75,8 +73,6 @@ void MainWindow::on_addUser_clicked()
 
 void MainWindow::on_addUserButton_clicked()
 {
-    Database db;
-
     int role = ui->roleSelector->currentIndex();
     QString username = ui->enterUserBox->text();
     QString password = ui->enterPasswordBox->text();
@@ -96,8 +92,6 @@ void MainWindow::on_updateUser_clicked()
 
 void MainWindow::on_userIDBox_valueChanged(int userID)
 {
-    Database db;
-
     QSqlQuery query;
     query.prepare("SELECT role_id, user_name, user_password, user_first_name, user_last_name FROM users WHERE user_id = :userID");
     query.bindValue(":userID", userID);
@@ -119,6 +113,7 @@ void MainWindow::on_userIDBox_valueChanged(int userID)
     }
     else
     {
+        qDebug() << query.lastError().text();
         QMessageBox noUsers;
         noUsers.setText("No users to update");
         noUsers.exec();
@@ -127,8 +122,6 @@ void MainWindow::on_userIDBox_valueChanged(int userID)
 
 void MainWindow::on_updateButton_clicked()
 {
-    Database db;
-
     // Get the selected user ID from the spin box
     int userIDToUpdate = ui->userIDBox->value();
     int updatedRoleID = ui->updateRole->currentIndex();
@@ -147,16 +140,39 @@ void MainWindow::on_deleteUser_clicked()
 
 void MainWindow::on_deleteButton_clicked()
 {
-    Database db;
-
     // Get the selected user ID from the spin box
     int userID = ui->userIDBox->value();
-    int updatedRoleID = ui->updateRole->currentIndex();
-    QString updatedUsername = ui->updateUserBox->text();
-    QString updatedPassword = ui->updatePasswordBox->text();
-    QString updatedFname = ui->updateFnameBox->text();
-    QString updatedLname = ui->updateLnameBox->text();
-
-    user.deleteUser(userID, updatedRoleID, updatedUsername.toStdString(), updatedPassword.toStdString(), updatedFname.toStdString(), updatedLname.toStdString());
+    //call delete user function
+    user.deleteUser(userID);
+    showNextUser();
 }
 
+void MainWindow::showNextUser()
+{
+    int nextUserID = getNextUserID();
+    if (nextUserID != -1)
+    {
+        ui->userIDBox->setValue(nextUserID);
+    }
+    else
+    {
+        // Handle the case when there are no more users
+        // You can choose to display a message or reset the interface
+    }
+}
+
+int MainWindow::getNextUserID()
+{
+    QSqlQuery nextUserQuery;
+    nextUserQuery.prepare("SELECT MIN(user_id) FROM users WHERE user_id > :currentUserID;");
+    nextUserQuery.bindValue(":currentUserID", ui->userIDBox->value());
+
+    if (nextUserQuery.exec() && nextUserQuery.next())
+    {
+        return nextUserQuery.value(0).toInt();
+    }
+    else
+    {
+        return -1; // No more users or an error occurred
+    }
+}

@@ -164,20 +164,19 @@ void User::updateUser(int userID, int updatedRoleID, const string updatedUsernam
     }
 }
 
-void User::deleteUser(int userID, int toDeleteRoleID, const string toDeleteUsername, const string toDeletePassword, const string toDeleteFname, const string toDeleteLname)
+void User::deleteUser(int userID)
 {
     QSqlQuery deleteUserQuery;
-    deleteUserQuery.prepare("DELETE FROM users role_id = :toDeleteRoleID, user_name = :toDeleteUsername, user_password = :toDeletePassword, user_first_name = :toDeleteFname, user_last_name = :toDeleteLname WHERE user_id = :userID");
+    deleteUserQuery.prepare("DELETE FROM users WHERE user_id = :userID;");
 
-    deleteUserQuery.bindValue(":toDeleteRoleID", toDeleteRoleID);
-    deleteUserQuery.bindValue(":updatedUsername", QString::fromStdString(toDeleteUsername));
-    deleteUserQuery.bindValue(":updatedPassword", QString::fromStdString(toDeletePassword));
-    deleteUserQuery.bindValue(":updatedFname", QString::fromStdString(toDeleteFname));
-    deleteUserQuery.bindValue(":updatedLname", QString::fromStdString(toDeleteLname));
     deleteUserQuery.bindValue(":userID", userID);
 
-    if (!deleteUserQuery.exec())
+    if (deleteUserQuery.exec())
     {
-        qDebug() << "Error updating user:" << deleteUserQuery.lastError().text();
+        qDebug() << "Successfully deleted user" << deleteUserQuery.lastError().text();
+    }
+    else
+    {
+        qDebug() << "Error deleting user:" << deleteUserQuery.lastError().text();
     }
 }

@@ -37,7 +37,7 @@ public:
     bool loginVerification(const string, const string);
     void addNewUser(int newRoleID, const string newUsername, const string newPassword, const string newFname, const string newLname);
     void updateUser(int userID, int updatedRoleID, const string updatedUsername, const string updatedPassword, const string updatedFname, const string updatedLname);
-    void deleteUser(int userID, int toDeleteRoleID, const string toDeleteUsername, const string toDeletePassword, const string toDeleteFname, const string toDeleteLname);
+    void deleteUser(int userID);
 };
 
 #endif // USER_H

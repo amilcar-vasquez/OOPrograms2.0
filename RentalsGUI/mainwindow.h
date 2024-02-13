@@ -39,11 +39,15 @@ private slots:
 
     void on_updateUser_clicked();
 
-    void on_userIDBox_valueChanged(int arg1);
+    void on_userIDBox_valueChanged(int userID);
 
     void on_deleteUser_clicked();
 
     void on_deleteButton_clicked();
+
+    void showNextUser();
+
+    int getNextUserID();
 
 private:
     Ui::MainWindow *ui;
