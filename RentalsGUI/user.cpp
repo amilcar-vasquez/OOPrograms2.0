@@ -1,44 +1,38 @@
 #include "user.h"
 
-// user.cpp
-User::User() : UserID(0), UserFirstName(""), UserLastName(""), Username(""), UserPassword(""), UserRole(0){}
+User::User(){}
 
-User::User(int newUserID, const string newUserFirstName, const string newUserLastName, const string newUsername, const string newUserPassword, int newRole)
-    : UserID(newUserID), UserFirstName(newUserFirstName),
-    UserLastName(newUserLastName), Username(newUsername), UserPassword(newUserPassword),
-    UserRole(newRole)
-{
-    // Additional setup if needed
-}
+User::User(int newID, QString newFname, QString newLname, QString newUsername, QString newPassword, int newRole)
+    :UserID(newID), lname(newLname), fname(newFname), username(newUsername), password(newPassword), role(newRole) {}
 
 int User::getUserID()
 {
     return UserID;
 }
 
-string User::getUserFirstName()
+QString User::getUserFirstName()
 {
-    return UserFirstName;
+    return fname;
 }
 
-string User::getUserLastName()
+QString User::getUserLastName()
 {
-    return UserLastName;
+    return lname;
 }
 
-string User::getUsername()
+QString User::getUsername()
 {
-    return Username;
+    return username;
 }
 
-string User::getUserPassword()
+QString User::getUserPassword()
 {
-    return UserPassword;
+    return password;
 }
 
 int User::getUserRole()
 {
-    return UserRole;
+    return role;
 }
 
 void User::setUserID(int newUserID)
@@ -46,68 +40,69 @@ void User::setUserID(int newUserID)
     UserID = newUserID;
 }
 
-void User::setUserFirstName(const string newUserFirstName)
+void User::setUserFirstName(QString newFname)
 {
-    UserFirstName = newUserFirstName;
+    fname = newFname;
 }
 
-void User::setUserLastName(const string newUserLastName)
+void User::setUserLastName(QString newLname)
 {
-    UserLastName = newUserLastName;
+    lname = newLname;
 }
 
-void User::setUsername(const string newUsername)
+void User::setUsername(QString newUsername)
 {
-    Username = newUsername;
+    username = newUsername;
 }
 
-void User::setUserPassword(const string newUserPassword)
+void User::setUserPassword(QString newPassword)
 {
-    UserPassword = newUserPassword;
+    password = newPassword;
 }
 
-void User::setUserRole(const string enteredUsername)
+//setter function will include the logic for getting the user's role from the database.
+void User::setUserRole(QString enteredUsername)
 {
     QSqlQuery roleQuery;
 
     // get role id and username from db.
-    if (roleQuery.exec("SELECT role_id FROM users WHERE user_name = '" + QString::fromStdString(enteredUsername) + "'"))
+    if (roleQuery.exec("SELECT role_id FROM users WHERE user_name = '" + enteredUsername + "'"))
     {
         if (roleQuery.next())
         {
             int userRoleFromDB = roleQuery.value(0).toInt();
-            UserRole = userRoleFromDB;
+            role = userRoleFromDB;
             qDebug() << "User role set successfully.";
         }
         else
         {
             qDebug() << "Failed to retrieve user role. Defaulting to UserRole = 0.";
-            UserRole = 0; // Default role if the query didn't return a result
+            role = 0; // Default role if the query didn't return a result
         }
     }
     else
     {
         qDebug() << roleQuery.lastError().text();
-        UserRole = 0; // Default role in case of an error
+        role = 0; // Default role in case of an error
     }
 }
 
-
-bool User::loginVerification(const string enteredUsername, const string enteredPassword)
+//login verifyer
+bool User::loginVerification(QString uiUsername, QString uiPassword)
 {
         QSqlQuery verifyQuery; // Creating a query to verify user information.
 
-        if (verifyQuery.exec("SELECT user_name, user_password FROM users WHERE user_name = '" + QString::fromStdString(enteredUsername) + "'"))
+        if (verifyQuery.exec("SELECT user_name, user_password FROM users WHERE user_name = '" + uiUsername + "'"))
         {
             if (verifyQuery.next())
             {
-                QString storedUsername = verifyQuery.value(0).toString();
-                QString storedPassword = verifyQuery.value(1).toString();
+                QString dbUsername = verifyQuery.value(0).toString();
+                QString dbPassword = verifyQuery.value(1).toString();
                 //compare password from db to password entered.
-                if (storedUsername == QString::fromStdString(enteredUsername) && storedPassword == QString::fromStdString(enteredPassword))
+                if (dbUsername == uiUsername && dbPassword == uiPassword)
                 {
                     qDebug() << "Login successful.";
-                    setUserRole(enteredUsername);
+                    setUserRole(uiUsername);
                     return true;
                 }
                 else
@@ -129,16 +124,16 @@ bool User::loginVerification(const string enteredUsername, const string enteredP
         }
 }
 
-void User::addNewUser(int newRoleID, const string newUsername, const string newPassword, const string newFname, const string newLname)
+void User::addNewUser(int newRoleID, QString newUsername, QString newPassword, QString newFname, QString newLname)
 {
     QSqlQuery addUserQuery;
     addUserQuery.prepare("INSERT INTO users (role_id, user_name, user_password, user_first_name, user_last_name) VALUES (:roleID, :username, :password, :fname, :lname)");
 
-    addUserQuery.bindValue(":roleID", newRoleID);
-    addUserQuery.bindValue(":username", QString::fromStdString(newUsername));
-    addUserQuery.bindValue(":password", QString::fromStdString(newPassword));
-    addUserQuery.bindValue(":fname", QString::fromStdString(newFname));
-    addUserQuery.bindValue(":lname", QString::fromStdString(newLname));
+    addUserQuery.bindValue(":roleID", newRoleID); //bind each value from db to values from the user interface.
+    addUserQuery.bindValue(":username", newUsername);
+    addUserQuery.bindValue(":password", newPassword);
+    addUserQuery.bindValue(":fname", newFname);
+    addUserQuery.bindValue(":lname", newLname);
 
     if (!addUserQuery.exec())
     {
@@ -146,16 +141,16 @@ void User::addNewUser(int newRoleID, const string newUsername, const string newP
     }
 }
 
-void User::updateUser(int userID, int updatedRoleID, const string updatedUsername, const string updatedPassword, const string updatedFname, const string updatedLname)
+void User::updateUser(int userID, int updatedRoleID, QString updatedUsername, QString updatedPassword, QString updatedFname, QString updatedLname)
 {
     QSqlQuery updateUserQuery;
     updateUserQuery.prepare("UPDATE users SET role_id = :updatedRoleID, user_name = :updatedUsername, user_password = :updatedPassword, user_first_name = :updatedFname, user_last_name = :updatedLname WHERE user_id = :userID");
 
     updateUserQuery.bindValue(":updatedRoleID", updatedRoleID);
-    updateUserQuery.bindValue(":updatedUsername", QString::fromStdString(updatedUsername));
-    updateUserQuery.bindValue(":updatedPassword", QString::fromStdString(updatedPassword));
-    updateUserQuery.bindValue(":updatedFname", QString::fromStdString(updatedFname));
-    updateUserQuery.bindValue(":updatedLname", QString::fromStdString(updatedLname));
+    updateUserQuery.bindValue(":updatedUsername", updatedUsername);
+    updateUserQuery.bindValue(":updatedPassword", updatedPassword);
+    updateUserQuery.bindValue(":updatedFname", updatedFname);
+    updateUserQuery.bindValue(":updatedLname", updatedLname);
     updateUserQuery.bindValue(":userID", userID);
 
     if (!updateUserQuery.exec())

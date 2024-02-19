@@ -5,39 +5,37 @@
 #include <QSqlQuery>
 #include <QDebug>
 
-using namespace std;
-
 class User
 {
 private:
     int UserID;
-    string UserFirstName;
-    string UserLastName;
-    string Username;
-    string UserPassword;
-    int UserRole; // int as it will be an ID from roles table?
+    QString lname;
+    QString fname;
+    QString username;
+    QString password;
+    int role; // int as it will be an ID from roles table?
 
 public:
     User();
-    User(int newUserID, const string newUserFirstName, const string newUserLastName, const string newUserName, const string newUserPassword, int newRole);
+    User(int, QString, QString, QString, QString, int);
 
     int getUserID();
-    string getUserFirstName();
-    string getUserLastName();
-    string getUsername();
-    string getUserPassword();
+    QString getUserFirstName();
+    QString getUserLastName();
+    QString getUsername();
+    QString getUserPassword();
     int getUserRole();
 
-    void setUserID(int newUserID);
-    void setUserFirstName(const string newUserFirstName);
-    void setUserLastName(const string newUserLastName);
-    void setUsername(const string newUsername);
-    void setUserPassword(const string newUserPassword);
-    void setUserRole(const string enteredUsername);
-    bool loginVerification(const string, const string);
-    void addNewUser(int newRoleID, const string newUsername, const string newPassword, const string newFname, const string newLname);
-    void updateUser(int userID, int updatedRoleID, const string updatedUsername, const string updatedPassword, const string updatedFname, const string updatedLname);
-    void deleteUser(int userID);
+    void setUserID(int);
+    void setUserFirstName(QString);
+    void setUserLastName(QString);
+    void setUsername(QString);
+    void setUserPassword(QString);
+    void setUserRole(QString);
+    bool loginVerification(QString, QString);
+    void addNewUser(int, QString, QString, QString, QString);
+    void updateUser(int, int, QString, QString, QString, QString);
+    void deleteUser(int);
 };
 
 #endif // USER_H

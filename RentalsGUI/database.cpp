@@ -4,7 +4,9 @@ Database::Database() : connected(false)
 {
     if (openDatabase()) {
         connected = true;
-    } else {
+    }
+    else
+    {
         qDebug() << "Database connection failed.";
     }
 }
@@ -30,7 +32,9 @@ bool Database::openDatabase()
     if (db.open()) {
         qDebug() << "Database connection established.";
         return true;
-    } else {
+    }
+    else
+    {
         qDebug() << "Failed to open database:" << db.lastError().text();
         return false;
     }

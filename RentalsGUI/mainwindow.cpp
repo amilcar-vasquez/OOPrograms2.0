@@ -17,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     ui->stackedWidget->setCurrentIndex(0);
+    //connect the spin box containing the user id with a function that connects the different data members to db data.
     connect(ui->userIDBox, QOverload<int>::of(&QSpinBox::valueChanged), this, &MainWindow::on_userIDBox_valueChanged);
 }
 
@@ -32,11 +33,8 @@ void MainWindow::on_loginButton_clicked()
     QString uname = ui->username->text();
     QString pwd = ui->password->text();
 
-    // Convert QString to string
-    string usernameStr = uname.toStdString();
-    string passwordStr = pwd.toStdString();
     // Run verification
-    if (user.loginVerification(usernameStr, passwordStr))
+    if (user.loginVerification(uname, pwd))
     {
         // Get the user role
         int userRole = user.getUserRole();
@@ -79,7 +77,7 @@ void MainWindow::on_addUserButton_clicked()
     QString fname = ui->enterFnameBox->text();
     QString lname = ui->enterLnameBox->text();
 
-    user.addNewUser(role, username.toStdString(), password.toStdString(), fname.toStdString(), lname.toStdString());
+    user.addNewUser(role, username, password, fname, lname);
     QMessageBox successful;
     successful.setText("User added succesfully");
     successful.exec();
@@ -104,7 +102,7 @@ void MainWindow::on_userIDBox_valueChanged(int userID)
         QString fname = query.value(3).toString();
         QString lname = query.value(4).toString();
 
-        // Update the other UI elements with the retrieved information
+        // Update ui with db information.
         ui->updateRole->setCurrentIndex(roleID);
         ui->updateUserBox->setText(username);
         ui->updatePasswordBox->setText(password);
@@ -130,7 +128,7 @@ void MainWindow::on_updateButton_clicked()
     QString updatedFname = ui->updateFnameBox->text();
     QString updatedLname = ui->updateLnameBox->text();
 
-    user.updateUser(userIDToUpdate, updatedRoleID, updatedUsername.toStdString(), updatedPassword.toStdString(), updatedFname.toStdString(), updatedLname.toStdString());
+    user.updateUser(userIDToUpdate, updatedRoleID, updatedUsername, updatedPassword, updatedFname, updatedLname);
 }
 
 void MainWindow::on_deleteUser_clicked()
@@ -156,8 +154,9 @@ void MainWindow::showNextUser()
     }
     else
     {
-        // Handle the case when there are no more users
-        // You can choose to display a message or reset the interface
+        QMessageBox noUsers;
+        noUsers.setText("No more users to show/delete");
+        noUsers.exec();
     }
 }
 
