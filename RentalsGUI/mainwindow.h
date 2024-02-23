@@ -3,6 +3,8 @@
 #include <iostream>
 #include <database.h>
 #include <user.h>
+#include <title.h>
+#include <customer.h>
 #include <QStringList>
 #include <QtSql>
 #include <QSqlDatabase>
@@ -49,10 +51,21 @@ private slots:
 
     int getNextUserID();
 
+    void on_addTitle_clicked();
+
+    void on_addTitleButton_clicked();
+
+    void on_updateTitle_clicked();
+
+    void on_updateTitleButton_clicked();
+
+    void on_titleIDBox_valueChanged(int titleID);
+
 private:
     Ui::MainWindow *ui;
     Database db;
     User user;
-
+    Title title;
+    Customer customer;
 };
 #endif // MAINWINDOW_H

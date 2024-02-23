@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "user.h"
 #include <QMainWindow>
 #include <QtSql>
 #include <QSqlDatabase>
@@ -19,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->stackedWidget->setCurrentIndex(0);
     //connect the spin box containing the user id with a function that connects the different data members to db data.
     connect(ui->userIDBox, QOverload<int>::of(&QSpinBox::valueChanged), this, &MainWindow::on_userIDBox_valueChanged);
+    connect(ui->titleIDBox, QOverload<int>::of(&QSpinBox::valueChanged), this &MainWindow::on_titleIDBox_valueChanged);
 }
 
 MainWindow::~MainWindow()
@@ -175,3 +175,60 @@ int MainWindow::getNextUserID()
         return -1; // No more users or an error occurred
     }
 }
+
+void MainWindow::on_addTitle_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(5);
+}
+
+
+void MainWindow::on_addTitleButton_clicked()
+{
+    int titleType = ui->titleTypeSelector->currentIndex();
+    QString titleName = ui->enterTitleBox->text();
+
+    title.addTitle(titleName, titleType);
+    QMessageBox successful;
+    successful.setText("Title added succesfully");
+    successful.exec();
+}
+
+
+void MainWindow::on_updateTitle_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(6);
+}
+
+
+void MainWindow::on_updateTitleButton_clicked()
+{
+
+}
+
+
+void MainWindow::on_titleIDBox_valueChanged(int titleID)
+{
+    QSqlQuery query;
+    query.prepare("SELECT title_id, title_name, title_type_id FROM title WHERE title_id = :titleID");
+    query.bindValue(":titleID", titleID);
+
+    if (query.exec() && query.next())
+    {
+        int titleID = query.value(0).toInt();
+        QString titleName = query.value(1).toString();
+        QString titleType = query.value(2).toString();
+
+        // Update ui with db information.
+        ui->updateRole->setCurrentIndex(titleID);
+        ui->updateUserBox->setText(titleName);
+        ui->updatePasswordBox->setText(titleType);
+    }
+    else
+    {
+        qDebug() << query.lastError().text();
+        QMessageBox noTitles;
+        noTitles.setText("No more titles");
+        noTitles.exec();
+    }
+}
+

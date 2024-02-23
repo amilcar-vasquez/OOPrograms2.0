@@ -19,28 +19,28 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QHBoxLayout" name="horizontalLayout_3">
+   <layout class="QVBoxLayout" name="verticalLayout_3">
+    <item>
+     <spacer name="verticalSpacer_3">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>3</number>
+       <number>7</number>
       </property>
       <widget class="QWidget" name="loginScreen">
-       <layout class="QVBoxLayout" name="verticalLayout">
-        <item>
-         <spacer name="verticalSpacer_2">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="1">
          <widget class="QLabel" name="label">
           <property name="text">
            <string>Welcome! Please Login:</string>
@@ -50,7 +50,27 @@
           </property>
          </widget>
         </item>
-        <item>
+        <item row="1" column="0">
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="3" column="1">
+         <widget class="QPushButton" name="loginButton">
+          <property name="text">
+           <string>Login</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
          <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
            <widget class="QLabel" name="userLabel">
@@ -64,7 +84,20 @@
           </item>
          </layout>
         </item>
-        <item>
+        <item row="1" column="2">
+         <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="2" column="1">
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
            <widget class="QLabel" name="passwordLabel">
@@ -74,97 +107,116 @@
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="password"/>
+           <widget class="QLineEdit" name="password">
+            <property name="echoMode">
+             <enum>QLineEdit::Password</enum>
+            </property>
+           </widget>
           </item>
          </layout>
-        </item>
-        <item>
-         <widget class="QPushButton" name="loginButton">
-          <property name="text">
-           <string>Login</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="verticalSpacer">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
         </item>
        </layout>
       </widget>
       <widget class="QWidget" name="managerScreen">
-       <widget class="QLabel" name="label_2">
-        <property name="geometry">
-         <rect>
-          <x>260</x>
-          <y>10</y>
-          <width>221</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>16</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Manager's Menu</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="addUser">
-        <property name="geometry">
-         <rect>
-          <x>60</x>
-          <y>100</y>
-          <width>101</width>
-          <height>81</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Add User</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="updateUser">
-        <property name="geometry">
-         <rect>
-          <x>280</x>
-          <y>100</y>
-          <width>111</width>
-          <height>81</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Update User</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="deleteUser">
-        <property name="geometry">
-         <rect>
-          <x>480</x>
-          <y>100</y>
-          <width>121</width>
-          <height>81</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Delete User</string>
-        </property>
-       </widget>
+       <layout class="QVBoxLayout" name="verticalLayout_6">
+        <item>
+         <widget class="QLabel" name="label_2">
+          <property name="font">
+           <font>
+            <pointsize>16</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Manager's Menu</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_15">
+          <item>
+           <widget class="QPushButton" name="addUser">
+            <property name="text">
+             <string>Add User</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="updateUser">
+            <property name="text">
+             <string>Update User</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="deleteUser">
+            <property name="text">
+             <string>Delete User</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_16">
+          <item>
+           <widget class="QPushButton" name="addTitle">
+            <property name="text">
+             <string>Add Title</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="updateTitle">
+            <property name="text">
+             <string>Update Title</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="deleteTitle">
+            <property name="text">
+             <string>Delete Title</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_17">
+          <item>
+           <widget class="QPushButton" name="addCustomer">
+            <property name="text">
+             <string>Add Customer</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="updateCustomer">
+            <property name="text">
+             <string>Update Customer</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="deleteCustomer">
+            <property name="text">
+             <string>Delete Customer</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="clerkScreen">
        <widget class="QLabel" name="label_3">
         <property name="geometry">
          <rect>
-          <x>300</x>
-          <y>40</y>
+          <x>320</x>
+          <y>0</y>
           <width>121</width>
           <height>20</height>
          </rect>
@@ -175,106 +227,231 @@
        </widget>
       </widget>
       <widget class="QWidget" name="addUserForm">
-       <widget class="QWidget" name="">
+       <layout class="QHBoxLayout" name="horizontalLayout_9">
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_4">
+            <item>
+             <widget class="QLabel" name="roleLabel">
+              <property name="text">
+               <string>Role:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="roleSelector">
+              <item>
+               <property name="text">
+                <string>Set Role</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Clerk</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Manager</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_5">
+            <item>
+             <widget class="QLabel" name="usernameLabel">
+              <property name="text">
+               <string>Username:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="enterUserBox"/>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_6">
+            <item>
+             <widget class="QLabel" name="passwordLabel_2">
+              <property name="text">
+               <string>Password:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="enterPasswordBox"/>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_7">
+            <item>
+             <widget class="QLabel" name="fnameLabel">
+              <property name="text">
+               <string>First Name:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="enterFnameBox"/>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_8">
+            <item>
+             <widget class="QLabel" name="lnameLabel">
+              <property name="text">
+               <string>Last Name:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="enterLnameBox"/>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="QPushButton" name="addUserButton">
+            <property name="text">
+             <string>Add New User</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="addCustomerForm">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="layoutWidget_2">
         <property name="geometry">
          <rect>
-          <x>30</x>
-          <y>20</y>
-          <width>701</width>
-          <height>531</height>
+          <x>10</x>
+          <y>0</y>
+          <width>764</width>
+          <height>198</height>
          </rect>
         </property>
-        <layout class="QVBoxLayout" name="verticalLayout_2">
+        <layout class="QVBoxLayout" name="verticalLayout_8">
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <layout class="QHBoxLayout" name="horizontalLayout_20">
            <item>
-            <widget class="QLabel" name="roleLabel">
+            <widget class="QLabel" name="customerLabel">
              <property name="text">
-              <string>Role:</string>
+              <string>Customer Name:</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QComboBox" name="roleSelector">
-             <item>
-              <property name="text">
-               <string>Set Role</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Clerk</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Manager</string>
-              </property>
-             </item>
-            </widget>
+            <widget class="QLineEdit" name="enterCustomerBox"/>
            </item>
           </layout>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_5">
+          <layout class="QHBoxLayout" name="horizontalLayout_21">
            <item>
-            <widget class="QLabel" name="usernameLabel">
+            <widget class="QLabel" name="addressLabel">
              <property name="text">
-              <string>Username:</string>
+              <string>Address:</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="enterUserBox"/>
+            <widget class="QLineEdit" name="enterAddressBox"/>
            </item>
           </layout>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <layout class="QHBoxLayout" name="horizontalLayout_22">
            <item>
-            <widget class="QLabel" name="passwordLabel_2">
+            <widget class="QLabel" name="phoneLabel">
              <property name="text">
-              <string>Password:</string>
+              <string>Phone Number</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="enterPasswordBox"/>
+            <widget class="QLineEdit" name="enterPhoneBox"/>
            </item>
           </layout>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_7">
-           <item>
-            <widget class="QLabel" name="fnameLabel">
-             <property name="text">
-              <string>First Name:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="enterFnameBox"/>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_8">
-           <item>
-            <widget class="QLabel" name="lnameLabel">
-             <property name="text">
-              <string>Last Name:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="enterLnameBox"/>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <widget class="QPushButton" name="addUserButton">
+          <widget class="QPushButton" name="addCustomerButton">
            <property name="text">
-            <string>Add New User</string>
+            <string>Add New Customer</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="addTitleForm">
+       <widget class="QWidget" name="layoutWidget_3">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>0</y>
+          <width>764</width>
+          <height>198</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_9">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_18">
+           <item>
+            <widget class="QLabel" name="titleTypeLabel">
+             <property name="text">
+              <string>Title Type:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="titleTypeSelector">
+             <item>
+              <property name="text">
+               <string>Set Title Type</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Movie DvD</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Game Dvd</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_19">
+           <item>
+            <widget class="QLabel" name="titleLabel">
+             <property name="text">
+              <string>Title Name:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="enterTitleBox"/>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QPushButton" name="addTitleButton">
+           <property name="text">
+            <string>Add New Title</string>
            </property>
           </widget>
          </item>
@@ -282,174 +459,239 @@
        </widget>
       </widget>
       <widget class="QWidget" name="updateUserForm">
-       <widget class="QLineEdit" name="updateFnameBox">
-        <property name="geometry">
-         <rect>
-          <x>110</x>
-          <y>130</y>
-          <width>113</width>
-          <height>22</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QLabel" name="passwordLabel_3">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>90</y>
-          <width>71</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Password:</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="lnameLabel_2">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>160</y>
-          <width>81</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Last Name:</string>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="updateLnameBox">
-        <property name="geometry">
-         <rect>
-          <x>110</x>
-          <y>160</y>
-          <width>113</width>
-          <height>22</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QLabel" name="usernameLabel_2">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>60</y>
-          <width>71</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Username:</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="roleLabel_2">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>20</y>
-          <width>58</width>
-          <height>15</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Role:</string>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="updatePasswordBox">
-        <property name="geometry">
-         <rect>
-          <x>110</x>
-          <y>90</y>
-          <width>113</width>
-          <height>22</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QComboBox" name="updateRole">
-        <property name="geometry">
-         <rect>
-          <x>70</x>
-          <y>20</y>
-          <width>79</width>
-          <height>23</height>
-         </rect>
-        </property>
-        <item>
-         <property name="text">
-          <string>Set Role</string>
-         </property>
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="0" column="1">
+         <layout class="QVBoxLayout" name="verticalLayout_5">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_14">
+            <item>
+             <widget class="QLabel" name="label_4">
+              <property name="text">
+               <string>Select User:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QSpinBox" name="userIDBox"/>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="QPushButton" name="updateButton">
+            <property name="text">
+             <string>Update User</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="deleteButton">
+            <property name="text">
+             <string>Delete User</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
-        <item>
-         <property name="text">
-          <string>Clerk</string>
-         </property>
+        <item row="0" column="0">
+         <layout class="QVBoxLayout" name="verticalLayout_4">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_3">
+            <item>
+             <widget class="QLabel" name="roleLabel_2">
+              <property name="text">
+               <string>Role:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="updateRole">
+              <item>
+               <property name="text">
+                <string>Set Role</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Clerk</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Manager</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_10">
+            <item>
+             <widget class="QLabel" name="usernameLabel_2">
+              <property name="text">
+               <string>Username:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="updateUserBox"/>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_11">
+            <item>
+             <widget class="QLabel" name="passwordLabel_3">
+              <property name="text">
+               <string>Password:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="updatePasswordBox"/>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_12">
+            <item>
+             <widget class="QLabel" name="fnameLabel_2">
+              <property name="text">
+               <string>First Name:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="updateFnameBox"/>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_13">
+            <item>
+             <widget class="QLabel" name="lnameLabel_2">
+              <property name="text">
+               <string>Last Name:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="updateLnameBox"/>
+            </item>
+           </layout>
+          </item>
+         </layout>
         </item>
-        <item>
-         <property name="text">
-          <string>Manager</string>
-         </property>
-        </item>
-       </widget>
-       <widget class="QLabel" name="fnameLabel_2">
+       </layout>
+      </widget>
+      <widget class="QWidget" name="updateTitleForm">
+       <widget class="QWidget" name="layoutWidget">
         <property name="geometry">
          <rect>
-          <x>20</x>
-          <y>130</y>
-          <width>81</width>
-          <height>16</height>
+          <x>0</x>
+          <y>0</y>
+          <width>741</width>
+          <height>211</height>
          </rect>
         </property>
-        <property name="text">
-         <string>First Name:</string>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="updateUserBox">
-        <property name="geometry">
-         <rect>
-          <x>110</x>
-          <y>60</y>
-          <width>113</width>
-          <height>22</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="updateButton">
-        <property name="geometry">
-         <rect>
-          <x>240</x>
-          <y>220</y>
-          <width>80</width>
-          <height>23</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Update User</string>
-        </property>
-       </widget>
-       <widget class="QSpinBox" name="userIDBox">
-        <property name="geometry">
-         <rect>
-          <x>480</x>
-          <y>30</y>
-          <width>42</width>
-          <height>23</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="deleteButton">
-        <property name="geometry">
-         <rect>
-          <x>360</x>
-          <y>220</y>
-          <width>80</width>
-          <height>23</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Delete User</string>
-        </property>
+        <layout class="QGridLayout" name="gridLayout_3">
+         <item row="0" column="0">
+          <layout class="QVBoxLayout" name="verticalLayout_12">
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_30">
+             <item>
+              <widget class="QLabel" name="roleLabel_4">
+               <property name="text">
+                <string>Title Type:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="updateTitleType">
+               <item>
+                <property name="text">
+                 <string>Update Title Type</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Movie DvD</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Game DvD</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_31">
+             <item>
+              <widget class="QLabel" name="titleNameLabel">
+               <property name="text">
+                <string>Title Name:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="updateTitleBox"/>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </item>
+         <item row="0" column="1">
+          <layout class="QVBoxLayout" name="verticalLayout_11">
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_29">
+             <item>
+              <widget class="QLabel" name="selectUserLabel">
+               <property name="text">
+                <string>Select User:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="titleIDBox"/>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QPushButton" name="updateTitleButton">
+             <property name="text">
+              <string>Update Title</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="deleteTitleButton">
+             <property name="text">
+              <string>Delete Title</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
        </widget>
       </widget>
      </widget>
+    </item>
+    <item>
+     <spacer name="verticalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
     </item>
    </layout>
   </widget>

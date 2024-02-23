@@ -36,15 +36,46 @@ void Title::setTitleType(int newTitleType)
 
 void Title::addTitle(QString newTitle, int newTitleType)
 {
+    QSqlQuery insertQuery;
+    insertQuery.prepare("INSERT INTO titles (title_name, title_type_id) VALUES (:dbTitleName, :dbTitleType)");
 
+    insertQuery.bindValue(":dbTitleName", newTitle); //bind each value from db to values from the user interface.
+    insertQuery.bindValue(":dbTitleType", newTitleType);
+
+    if (!insertQuery.exec())
+    {
+        qDebug() << "Error adding new title:" << insertQuery.lastError().text();
+    }
 }
 
 void Title::updateTitle(int newTitleID, QString newTitleName, int newTitleType)
 {
+    QSqlQuery updateQuery;
+    updateQuery.prepare("UPDATE titles SET title_id = :dbTitleID, title_name = :dbTitleName, title_type_id = :dbTitleType WHERE title_id = :dbTitleID");
 
+    updateQuery.bindValue(":dbTitleID", newTitleID);
+    updateQuery.bindValue(":dbTitleName", newTitleName);
+    updateQuery.bindValue(":dbTitleType", newTitleType);
+
+    if (!updateQuery.exec())
+    {
+        qDebug() << "Error updating title:" << updateQuery.lastError().text();
+    }
 }
 
 void Title::deleteTitle(int newTitleID)
 {
+    QSqlQuery deleteQuery;
+    deleteQuery.prepare("DELETE FROM users WHERE title_id = :TitleID;");
 
+    deleteQuery.bindValue(":dbTitleID", newTitleID);
+
+    if (deleteQuery.exec())
+    {
+        qDebug() << "Successfully deleted title" << deleteQuery.lastError().text();
+    }
+    else
+    {
+        qDebug() << "Error deleting title:" << deleteQuery.lastError().text();
+    }
 }
