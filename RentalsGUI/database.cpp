@@ -21,6 +21,7 @@ bool Database::isConnected() const
     return connected;
 }
 
+//main function responsible for connecting to the database.
 bool Database::openDatabase()
 {
     db = QSqlDatabase::addDatabase("QMYSQL");

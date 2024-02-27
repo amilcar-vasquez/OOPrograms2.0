@@ -11,24 +11,24 @@ private:
     int customerID;
     QString customerName;
     QString address;
-    int phoneNo;
+    QString phoneNo;
 
 
 public:
     Customer();
-    Customer(int, QString, QString, int);
+    Customer(int, QString, QString, QString);
 
     int getCustomerID();
     QString getCustomerName();
     QString getAddress();
-    int getPhoneNo();
+    QString getPhoneNo();
 
     void setCustomerID(int);
     void setCustomerName(QString);
     void setCustomerAddress(QString);
-    void setPhoneNo(int);
-    void addCustomer(QString, QString, int);
-    void updateCustomer(int, QString, QString, int);
+    void setPhoneNo(QString);
+    void addCustomer(QString, QString, QString);
+    void updateCustomer(int, QString, QString, QString);
     void deleteCustomer(int);
 };
 

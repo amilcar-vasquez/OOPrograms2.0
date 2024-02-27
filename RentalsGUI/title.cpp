@@ -34,6 +34,7 @@ void Title::setTitleType(int newTitleType)
     titleType = newTitleType;
 }
 
+//function that adds a new title.
 void Title::addTitle(QString newTitle, int newTitleType)
 {
     QSqlQuery insertQuery;
@@ -48,6 +49,7 @@ void Title::addTitle(QString newTitle, int newTitleType)
     }
 }
 
+//function that updates titles.
 void Title::updateTitle(int newTitleID, QString newTitleName, int newTitleType)
 {
     QSqlQuery updateQuery;
@@ -63,10 +65,11 @@ void Title::updateTitle(int newTitleID, QString newTitleName, int newTitleType)
     }
 }
 
+//function to delete titles.
 void Title::deleteTitle(int newTitleID)
 {
     QSqlQuery deleteQuery;
-    deleteQuery.prepare("DELETE FROM users WHERE title_id = :TitleID;");
+    deleteQuery.prepare("DELETE FROM titles WHERE title_id = :dbTitleID;");
 
     deleteQuery.bindValue(":dbTitleID", newTitleID);
 
